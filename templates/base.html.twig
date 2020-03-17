@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- FAVICON -->
+  <link href="{{ asset('images/gsb.png') }}" rel="icon">
+
+  <!-- CSS -->
+  <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
+  <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <section id="container">
+
+    <!-- DEBUT HEADER-->
+    {% if app.user %}
+    <header class="header black-bg">
+
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Basculer le menu"></div>
+      </div>
+      <!-- DEBUT LOGO -->
+      <a href="/" class="logo"><b><span style="color:#66A3D3">GSB</b></a>
+      <!-- FIN LOGO -->
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" href="{{ path('security_logout') }}">Se déconnecter <i class="fa fa-sign-out"></i></a></li>
+        </ul>
+      </div>
+      
+    </header>
+    {% endif %}
+    <!-- FIN HEADER -->
+
+    <!-- MENU -->
+    {% if app.user %}
+    <aside>
+
+      <div id="sidebar" class="nav-collapse">
+      
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="/"><img src="{{ asset('images/gsb.png') }}" width="100"></a></p>
+          <h5 class="centered">{{ app.user.username }}</h5>
+          <li class="sub-menu">
+            <a href="/visiteur">
+              <i class="fa fa-angle-right"></i>
+              <span>Visiteurs</span>
+            </a>
+          </li>
+        </ul>
+        
+      </div>
+
+    </aside>
+    {% endif %}
+    <!-- FIN MENU -->
+    
+    <!-- CONTENU -->
+    {% if app.user %}
+    <!-- SI L'UTILISATEUR EST CONNECTÉ ALORS ON INTEGRE LE BLOCK BODY -->
+    <section id="main-content">
+
+      <section class="wrapper">
+
+        <div class="row mt" style="margin:15px">          
+            
+            {% block body %}{% endblock %}
+
+        </div>
+
+      </section>
+      
+    </section>
+    {% else %}
+      <!-- SINON PAGE D'ERREUR -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 p404 centered">
+            <img src="{{ asset('images/gsb.png') }}" width="60%">
+            <h1>Oops ! <i class="fa fa-bug"></i></h1>
+            <h3>Vous devez être connecté pour accéder à cette page</h3>
+            <br>
+            <a href="{{ path('security_login') }}"><button class="btn btn-primary">Se connecter <i class="fa fa-sign-in"></i></button></a>
+        </div>
+      </div>
+
+    {% endif %}
+
+    <!-- FIN CONTENU -->
+
+  </section>
+  
+  <!-- SCRIPTS -->
+  <script src="{{ asset('lib/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('lib/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('lib/jquery-ui-1.9.2.custom.min.js') }}"></script>
+  <script src="{{ asset('lib/jquery.ui.touch-punch.min.js') }}"></script>
+  <script class="include" type="text/javascript" src="{{ asset('lib/jquery.dcjqaccordion.2.7.js') }}"></script>
+  <script src="{{ asset('lib/jquery.scrollTo.min.js') }}"></script>
+  <script src="{{ asset('lib/jquery.nicescroll.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('lib/common-scripts.js') }}"></script>
+
+</body>
+
+</html>
