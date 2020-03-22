@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Visiteur{% endblock %}
+{% block title %}Modification de {{ visiteur.prenom }} {{ visiteur.nom }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Visiteur</h1>
+    <div class="showback">
+        <h1 class="bleu-gsb">Modification de {{ visiteur.prenom }} {{ visiteur.nom }}</h1>
+    </div>
 
-    {{ include('visiteur/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('visiteur_index') }}">back to list</a>
-
-    {{ include('visiteur/_delete_form.html.twig') }}
+    <div class="text-center">
+        {{ include('visiteur/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <br>
+        <a href="{{ path('visiteur_index') }}"><button class="btn btn-primary">Retour</button></a>
+    </div>
 {% endblock %}

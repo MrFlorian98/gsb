@@ -1,54 +1,77 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Visiteur{% endblock %}
+{% block title %}{{ visiteur.prenom }} {{ visiteur.nom }}{% endblock %}
 
 {% block body %}
-    <h1>Visiteur</h1>
+<center>
+    <h1 class="bleu-gsb">{{ visiteur.prenom }} {{ visiteur.nom }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ visiteur.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ visiteur.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ visiteur.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ visiteur.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ visiteur.ville }}</td>
-            </tr>
-            <tr>
-                <th>Cp</th>
-                <td>{{ visiteur.cp }}</td>
-            </tr>
-            <tr>
-                <th>DateEmbauche</th>
-                <td>{{ visiteur.dateEmbauche ? visiteur.dateEmbauche|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Login</th>
-                <td>{{ visiteur.username }}</td>
-            </tr>
-            <tr>
-                <th>Mdp</th>
-                <td>{{ visiteur.password }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12"></div>
 
-    <a href="{{ path('visiteur_index') }}">back to list</a>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Identifiant</th>
+                        <td>{{ visiteur.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ visiteur.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ visiteur.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Adresse</th>
+                        <td>{{ visiteur.adresse }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville</th>
+                        <td>{{ visiteur.ville }}</td>
+                    </tr>
+                    <tr>
+                        <th>Code postal</th>
+                        <td>{{ visiteur.cp }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date d'embauche</th>
+                        <td>{{ visiteur.dateEmbauche ? visiteur.dateEmbauche|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom d'utilisateur</th>
+                        <td>{{ visiteur.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mot de passe</th>
+                        <td><i>Crypté et caché</i></td>
+                    </tr>
+                    <tr>
+                        <th>Rôle</th>
+                        <td>{% for role in visiteur.roles %} 
+                                {% if role == 'ROLE_VISITEUR_MEDICAL' %}
+                                    Visiteur médical 
+                                {% elseif role == 'ROLE_COMPTABLE' %}
+                                    Comptable 
+                                {% elseif role == 'ROLE_ADMINISTRATEUR' %}
+                                    Administrateur 
+                                {% endif %}
+                            {% endfor %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('visiteur_edit', {'id': visiteur.id}) }}">edit</a>
+        <div class="col-lg-3 col-md-3 col-sm-12"></div>
 
+    </div>
+
+    <a href="{{ path('visiteur_edit', {'id': visiteur.id}) }}"><button class="btn btn-warning">Modifier</button></a>
+    <br><br>
     {{ include('visiteur/_delete_form.html.twig') }}
+    <br>
+    <a href="{{ path('visiteur_index') }}"><button class="btn btn-primary">Retour</button></a>
+</center>
 {% endblock %}

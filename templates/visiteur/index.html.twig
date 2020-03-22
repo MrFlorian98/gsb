@@ -1,49 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Visiteur index{% endblock %}
+{% block title %}Liste des visiteurs{% endblock %}
 
 {% block body %}
-    <h1>Visiteur index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Adresse</th>
-                <th>Ville</th>
-                <th>Cp</th>
-                <th>DateEmbauche</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for visiteur in visiteurs %}
-            <tr>
-                <td>{{ visiteur.id }}</td>
-                <td>{{ visiteur.nom }}</td>
-                <td>{{ visiteur.prenom }}</td>
-                <td>{{ visiteur.adresse }}</td>
-                <td>{{ visiteur.ville }}</td>
-                <td>{{ visiteur.cp }}</td>
-                <td>{{ visiteur.dateEmbauche ? visiteur.dateEmbauche|date('Y-m-d') : '' }}</td>
-                <td>{{ visiteur.username }}</td>
-                <td>{{ visiteur.password }}</td>
-                <td>
-                    <a href="{{ path('visiteur_show', {'id': visiteur.id}) }}">show</a>
-                    <a href="{{ path('visiteur_edit', {'id': visiteur.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="showback">
+        <h1>Liste des visiteurs <a href="{{ path('visiteur_new') }}"><button class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</button></a></h1>
+    </div>
 
-    <a href="{{ path('visiteur_new') }}">Create new</a>
+    <div class="showback">
+        <table class="table table-responsive">
+            <thead class="thead-gsb">
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Adresse</th>
+                    <th>Ville</th>
+                    <th>Code postal</th>
+                    <th>Date d'embauche</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Mot de passe</th>
+                    <th>Rôle</th>
+                    <th>Afficher</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for visiteur in visiteurs %}
+                <tr>
+                    <td>{{ visiteur.id }}</td>
+                    <td>{{ visiteur.nom }}</td>
+                    <td>{{ visiteur.prenom }}</td>
+                    <td>{{ visiteur.adresse }}</td>
+                    <td>{{ visiteur.ville }}</td>
+                    <td>{{ visiteur.cp }}</td>
+                    <td>{{ visiteur.dateEmbauche ? visiteur.dateEmbauche|date('Y-m-d') : '' }}</td>
+                    <td>{{ visiteur.username }}</td>
+                    <td><i>Crypté et caché</i></td>
+                    <td>{% for role in visiteur.roles %} 
+                            {% if role == 'ROLE_VISITEUR_MEDICAL' %}
+                                Visiteur médical 
+                            {% elseif role == 'ROLE_COMPTABLE' %}
+                                Comptable 
+                            {% elseif role == 'ROLE_ADMINISTRATEUR' %}
+                                Administrateur 
+                            {% endif %}
+                    {% endfor %}</td>
+                    <td><a href="{{ path('visiteur_show', {'id': visiteur.id}) }}"><button class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></button></a></td>
+                    <td><a href="{{ path('visiteur_edit', {'id': visiteur.id}) }}"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a></td>
+                    <td>{{ include('visiteur/_delete_form.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="100%">Aucun résultat trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
 {% endblock %}

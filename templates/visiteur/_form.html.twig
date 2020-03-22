@@ -1,4 +1,55 @@
 {{ form_start(form) }}
+
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">
+                <h4 class="bleu-gsb">Informations principales</h4>
+                {{ form_row(form.prenom, {'label': 'Prénom'}) }}
+                {{ form_row(form.nom, {'label': 'Nom'}) }}
+                {{ form_row(form.adresse, {'label': 'Adresse'}) }}
+                {{ form_row(form.ville, {'label': 'Ville'}) }}
+                {{ form_row(form.cp, {'label': 'Code postal'}) }}
+                {{ form_row(form.dateEmbauche, {'label': 'Date d\'embauche'}) }}
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">
+                <h4 class="bleu-gsb">Information de connexion</h4>
+                {{ form_row(form.username, {'label': 'Nom d\'utilisateur'}) }}
+                {% if app.request.attributes.get('_route') == 'visiteur_edit' %}
+                    {{ form_row(form.password, {'label': 'Mot de passe', 'attr': {'value': null}}) }}
+                {% else %}
+                    {{ form_row(form.password, {'label': 'Mot de passe'}) }}
+                {% endif %}
+            </div>
+                
+            <div class="showback">
+                <h4 class="bleu-gsb">Rôle</h4>
+                <!-- Si l'utilisateur connecté est administrateur on affiche tous les rôles -->
+                {% if is_granted('ROLE_ADMINISTRATEUR') %}
+                    {{ form_row(form.roles, {'label': ' '}) }}
+                <!-- Sinon si l'utilisateur connecté est visiteur médical on affiche seulement son rôle -->
+                {% elseif is_granted('ROLE_VISITEUR_MEDICAL') %}
+                    <div class="form-group">
+                        <select id="visiteur_roles" name="visiteur[roles][]" required="required" class="form-control" disabled="true">
+                            <option value="ROLE_VISITEUR_MEDICAL" selected="selected">Visiteur médical</option>
+                        </select>
+                    </div>
+                <!-- Sinon si l'utilisateur connecté est comptable on affiche seulement son rôle -->
+                {% elseif is_granted('ROLE_COMPTABLE') %}
+                    <div class="form-group">
+                        <select id="visiteur_roles" name="visiteur[roles][]" required="required" class="form-control" disabled="true">
+                            <option value="ROLE_COMPTABLE" selected="selected">Comptable</option>
+                        </select>
+                    </div>
+                {% endif %}
+            </div> 
+        </div>
+
+    </div>
+
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    
+    <button class="btn btn-success">{{ button_label|default('Valider') }}</button>
 {{ form_end(form) }}

@@ -7,12 +7,13 @@
   <title>{% block title %}{% endblock %}</title>
 
   <!-- FAVICON -->
-  <link href="{{ asset('images/gsb.png') }}" rel="icon">
+  <link href="{{ asset('images/gsb_icon.png') }}" rel="icon">
 
   <!-- CSS -->
   <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet" />
   <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/styleplus.css') }}" rel="stylesheet">
   <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
 
 </head>
@@ -29,7 +30,15 @@
         <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Basculer le menu"></div>
       </div>
       <!-- DEBUT LOGO -->
-      <a href="/" class="logo"><b><span style="color:#66A3D3">GSB</b></a>
+      <a href="/" class="logo"><b><span style="color:#66A3D3">GSB</b> - {{ app.user.prenom }}, Rôle : {% for role in app.user.roles %} 
+                                                                                                {% if role == 'ROLE_VISITEUR_MEDICAL' %}
+                                                                                                    Visiteur médical 
+                                                                                                {% elseif role == 'ROLE_COMPTABLE' %}
+                                                                                                    Comptable 
+                                                                                                {% elseif role == 'ROLE_ADMINISTRATEUR' %}
+                                                                                                    Administrateur 
+                                                                                                {% endif %}
+                                                                                              {% endfor %}</a>
       <!-- FIN LOGO -->
       <div class="top-menu">
         <ul class="nav pull-right top-menu">
@@ -49,13 +58,71 @@
       
         <ul class="sidebar-menu" id="nav-accordion">
           <p class="centered"><a href="/"><img src="{{ asset('images/gsb.png') }}" width="100"></a></p>
-          <h5 class="centered">{{ app.user.username }}</h5>
-          <li class="sub-menu">
-            <a href="/visiteur">
-              <i class="fa fa-angle-right"></i>
-              <span>Visiteurs</span>
-            </a>
-          </li>
+          <h5 class="centered">{{ app.user.prenom }}</h5>
+          <!-- Affichage du menu selon le rôle de l'utilisateur connecté -->
+          {% for role in app.user.roles %}
+            <!-- Si l'utilisateur est administrateur -->
+            {% if role == 'ROLE_ADMINISTRATEUR' %}
+              <li class="sub-menu">
+                <a href="#">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Renseigner fiche de frais</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="#">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Consulter fiche de frais</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="#">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Valider fiche de frais</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="#">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Suivre un paiement</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="/visiteur">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Comptes de visiteurs</span>
+                </a>
+              </li>
+            <!-- Sinon si l'utilisateur est visiteur médical -->
+            {% elseif role == 'ROLE_VISITEUR_MEDICAL' %}
+              <li class="sub-menu">
+                <a href="#">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Renseigner fiche de frais</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="#">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Consulter fiche de frais</span>
+                </a>
+              </li>
+            <!-- Sinon si l'utilisateur est comtpable -->
+            {% elseif role == 'ROLE_COMPTABLE' %}
+              <li class="sub-menu">
+                <a href="#">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Valider fiche de frais</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="#">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Suivre un paiement</span>
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
         </ul>
         
       </div>

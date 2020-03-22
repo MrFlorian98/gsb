@@ -57,6 +57,11 @@ class Visiteur implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -162,8 +167,20 @@ class Visiteur implements UserInterface
 
     public function getSalt() {}
 
-    public function getRoles() {
-        return ['ROLE_USER'];
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // Chaque utilisateur a au moins le rôle ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 
 }

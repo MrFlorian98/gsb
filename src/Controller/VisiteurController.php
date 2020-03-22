@@ -21,6 +21,7 @@ class VisiteurController extends AbstractController
      */
     public function index(VisiteurRepository $visiteurRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATEUR', null, 'Seuls les administrateurs ont accès à cette page !');
         return $this->render('visiteur/index.html.twig', [
             'visiteurs' => $visiteurRepository->findAll(),
         ]);
@@ -31,6 +32,7 @@ class VisiteurController extends AbstractController
      */
     public function new(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATEUR', null, 'Seuls les administrateurs ont accès à cette page !');
         $visiteur = new Visiteur();
         $form = $this->createForm(VisiteurType::class, $visiteur);
         $form->handleRequest($request);
@@ -56,6 +58,14 @@ class VisiteurController extends AbstractController
      */
     public function show(Visiteur $visiteur): Response
     {
+        //Récupérer l'id de l'utilisateur connecté
+        $currentUser = $this->getUser();
+        $currentId = $currentUser->getId();
+        //Si l'id de l'utilisateur connecté ne correspond pas à l'id de l'utilisateur qu'il veut consulter alors on renvoi l'erreur d'accès (sauf si c'est l'administrateur)
+        if($currentId != $visiteur->getId()){
+            $this->denyAccessUnlessGranted('ROLE_ADMINISTRATEUR', null, 'Vous ne pouvez pas consulter un autre profil que le votre (petit mâlin) !');
+        }
+        $this->denyAccessUnlessGranted('ROLE_ADMINISTRATEUR', null, 'Seuls les administrateurs ont accès à cette page !');
         return $this->render('visiteur/show.html.twig', [
             'visiteur' => $visiteur,
         ]);
@@ -64,15 +74,24 @@ class VisiteurController extends AbstractController
     /**
      * @Route("/{id}/edit", name="visiteur_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Visiteur $visiteur): Response
+    public function edit(Request $request, Visiteur $visiteur, UserPasswordEncoderInterface $encoder): Response
     {
+        //Récupérer l'id de l'utilisateur connecté
+        $currentUser = $this->getUser();
+        $currentId = $currentUser->getId();
+        //Si l'id de l'utilisateur connecté ne correspond pas à l'id de l'utilisateur qu'il veut modifier alors on renvoi l'erreur d'accès (sauf si c'est l'administrateur)
+        if($currentId != $visiteur->getId()){
+            $this->denyAccessUnlessGranted('ROLE_ADMINISTRATEUR', null, 'Vous ne pouvez pas modifier un autre profil que le votre (petit mâlin) !');
+        }
         $form = $this->createForm(VisiteurType::class, $visiteur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $hash = $encoder->encodePassword($visiteur, $visiteur->getPassword());
+            $visiteur->setPassword($hash);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('visiteur_index');
+            return $this->redirectToRoute('accueil');
         }
 
         return $this->render('visiteur/edit.html.twig', [

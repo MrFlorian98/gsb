@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Visiteur{% endblock %}
+{% block title %}Ajouter un nouveau visiteur{% endblock %}
 
 {% block body %}
-    <h1>Create new Visiteur</h1>
+    <div class="showback">
+        <h1 class="bleu-gsb">Ajouter un nouveau visiteur</h1>
+    </div>
 
-    {{ include('visiteur/_form.html.twig') }}
-
-    <a href="{{ path('visiteur_index') }}">back to list</a>
+    <div class="text-center">
+        {{ include('visiteur/_form.html.twig', {'button_label': 'Valider l\'ajout'}) }}
+        <br>
+        <a href="{{ path('visiteur_index') }}"><button class="btn btn-primary">Retour</button></a>
+    </div>
 {% endblock %}

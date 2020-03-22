@@ -15,8 +15,10 @@ class DefaultController extends AbstractController
     public function index(Security $security, AuthenticationUtils $authenticationUtils)
     {
         if ($security->getUser()){
+            $pass = $security->getUser()->getPassword();
             return $this->render('default/index.html.twig', [
                 'controller_name' => 'DefaultController',
+                'pass' => $pass,
             ]);
 
         //Sinon renvoi à la page de connexion
