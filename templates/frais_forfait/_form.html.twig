@@ -1,4 +1,22 @@
 {{ form_start(form) }}
+
+    <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-12"></div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="showback">
+                <h4 class="bleu-gsb">Informations à renseigner</h4>
+                {{ form_row(form.abreviation, {'label': 'Abréviation'}) }}
+                {{ form_row(form.libelle, {'label': 'Libellé'}) }}
+                {{ form_row(form.montant, {'label': 'Montant'}) }}
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12"></div>
+
+    </div>
+
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    
+    <button class="btn btn-success">{{ button_label|default('Valider') }}</button>
+    
 {{ form_end(form) }}

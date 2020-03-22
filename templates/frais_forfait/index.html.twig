@@ -1,39 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}FraisForfait index{% endblock %}
+{% block title %}Les frais forfait{% endblock %}
 
 {% block body %}
-    <h1>FraisForfait index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Abreviation</th>
-                <th>Libelle</th>
-                <th>Montant</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for frais_forfait in frais_forfaits %}
-            <tr>
-                <td>{{ frais_forfait.id }}</td>
-                <td>{{ frais_forfait.abreviation }}</td>
-                <td>{{ frais_forfait.libelle }}</td>
-                <td>{{ frais_forfait.montant }}</td>
-                <td>
-                    <a href="{{ path('frais_forfait_show', {'id': frais_forfait.id}) }}">show</a>
-                    <a href="{{ path('frais_forfait_edit', {'id': frais_forfait.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="showback">
+        <h1>Les frais forfait <a href="{{ path('frais_forfait_new') }}"><button class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</button></a></h1>
+    </div>
 
-    <a href="{{ path('frais_forfait_new') }}">Create new</a>
+    <div class="showback">
+        <table class="table table-responsive">
+            <thead class="thead-gsb">
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Abréviation</th>
+                    <th>Libellé</th>
+                    <th>Montant (en €)</th>
+                    <th>Afficher</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for frais_forfait in frais_forfaits %}
+                <tr>
+                    <td>{{ frais_forfait.id }}</td>
+                    <td>{{ frais_forfait.abreviation }}</td>
+                    <td>{{ frais_forfait.libelle }}</td>
+                    <td>{{ frais_forfait.montant }} €</td>
+                    <td><a href="{{ path('frais_forfait_show', {'id': frais_forfait.id}) }}"><button class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></button></a></td>
+                    <td><a href="{{ path('frais_forfait_edit', {'id': frais_forfait.id}) }}"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a></td>
+                    <td>{{ include('frais_forfait/_delete_form.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="100%">Aucun résultat trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}

@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit FraisForfait{% endblock %}
+{% block title %}Modification de {{ frais_forfait.libelle }}{% endblock %}
 
 {% block body %}
-    <h1>Edit FraisForfait</h1>
+    <div class="showback">
+        <h1 class="bleu-gsb">Modification de {{ frais_forfait.libelle }}</h1>
+    </div>
 
-    {{ include('frais_forfait/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('frais_forfait_index') }}">back to list</a>
-
-    {{ include('frais_forfait/_delete_form.html.twig') }}
+    <div class="text-center">
+        {{ include('frais_forfait/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <br>
+        <a href="{{ path('frais_forfait_index') }}"><button class="btn btn-primary">Retour</button></a>
+    </div>
 {% endblock %}

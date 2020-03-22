@@ -1,5 +1,9 @@
-<form method="post" action="{{ path('frais_forfait_delete', {'id': frais_forfait.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('frais_forfait_delete', {'id': frais_forfait.id}) }}" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer ce frais forfait ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ frais_forfait.id) }}">
-    <button class="btn">Delete</button>
+    {% if app.request.attributes.get('_route') == 'frais_forfait_index' %}
+        <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+    {% elseif app.request.attributes.get('_route') == 'frais_forfait_show' %}
+        <button class="btn btn-danger">Supprimer</button>
+    {% endif %}
 </form>
