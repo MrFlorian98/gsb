@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class FraisForfait
      * @ORM\Column(type="float")
      */
     private $montant;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LigneFraisForfait", mappedBy="fkFraisForfait")
+     */
+    private $ligneFraisForfaits;
+
+    public function __construct()
+    {
+        $this->ligneFraisForfaits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,5 +82,40 @@ class FraisForfait
         $this->montant = $montant;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|LigneFraisForfait[]
+     */
+    public function getLigneFraisForfaits(): Collection
+    {
+        return $this->ligneFraisForfaits;
+    }
+
+    public function addLigneFraisForfait(LigneFraisForfait $ligneFraisForfait): self
+    {
+        if (!$this->ligneFraisForfaits->contains($ligneFraisForfait)) {
+            $this->ligneFraisForfaits[] = $ligneFraisForfait;
+            $ligneFraisForfait->setFkFraisForfait($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneFraisForfait(LigneFraisForfait $ligneFraisForfait): self
+    {
+        if ($this->ligneFraisForfaits->contains($ligneFraisForfait)) {
+            $this->ligneFraisForfaits->removeElement($ligneFraisForfait);
+            // set the owning side to null (unless already changed)
+            if ($ligneFraisForfait->getFkFraisForfait() === $this) {
+                $ligneFraisForfait->setFkFraisForfait(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string{
+        return $this->libelle;
     }
 }

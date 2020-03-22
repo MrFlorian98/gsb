@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les lignes frais hors forfait{% endblock %}
+
+{% block body %}
+
+    <div class="showback">
+        <h1>Les lignes frais hors forfait <a href="{{ path('ligne_frais_hors_forfait_new') }}"><button class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</button></a></h1>
+    </div>
+
+    <div class="showback">
+        <table class="table table-responsive">
+            <thead class="thead-gsb">
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Date</th>
+                    <th>Libellé</th>
+                    <th>Montant (en €)</th>
+                    <th>Afficher</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ligne_frais_hors_forfait in ligne_frais_hors_forfaits %}
+                <tr>
+                    <td>{{ ligne_frais_hors_forfait.id }}</td>
+                    <td>{{ ligne_frais_hors_forfait.date ? ligne_frais_hors_forfait.date|date('d-m-Y') : '' }}</td>
+                    <td>{{ ligne_frais_hors_forfait.libelle }}</td>
+                    <td>{{ ligne_frais_hors_forfait.montant }} €</td>
+                    <td><a href="{{ path('ligne_frais_hors_forfait_show', {'id': ligne_frais_hors_forfait.id}) }}"><button class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></button></a></td>
+                    <td><a href="{{ path('ligne_frais_hors_forfait_edit', {'id': ligne_frais_hors_forfait.id}) }}"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a></td>
+                    <td>{{ include('ligne_frais_hors_forfait/_delete_form.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="100%">Aucun résultat trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

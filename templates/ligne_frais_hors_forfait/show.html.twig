@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ligne frais hors forfait n° {{ ligne_frais_hors_forfait.id }}{% endblock %}
+
+{% block body %}
+<center>
+    <h1 class="bleu-gsb">Ligne frais hors forfait n° {{ ligne_frais_hors_forfait.id }}</h1>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12"></div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Identifiant</th>
+                        <td>{{ ligne_frais_hors_forfait.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>{{ ligne_frais_hors_forfait.date ? ligne_frais_hors_forfait.date|date('d-m-Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Libellé</th>
+                        <td>{{ ligne_frais_hors_forfait.libelle }}</td>
+                    </tr>
+                    <tr>
+                        <th>Montant (en €)</th>
+                        <td>{{ ligne_frais_hors_forfait.montant }} €</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-12"></div>
+
+    </div>
+
+    <a href="{{ path('ligne_frais_hors_forfait_edit', {'id': ligne_frais_hors_forfait.id}) }}"><button class="btn btn-warning">Modifier</button></a>
+    <br><br>
+    {{ include('ligne_frais_hors_forfait/_delete_form.html.twig') }}
+    <br>
+    <a href="{{ path('ligne_frais_hors_forfait_index') }}"><button class="btn btn-primary">Retour</button></a>
+</center>
+{% endblock %}

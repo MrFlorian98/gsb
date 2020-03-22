@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de la ligne de frais forfait n°{{ ligne_frais_forfait.id }}{% endblock %}
+
+{% block body %}
+    <div class="showback">
+        <h1 class="bleu-gsb">Modification de la ligne de frais forfait n°{{ ligne_frais_forfait.id }}</h1>
+    </div>
+
+    <div class="text-center">
+        {{ include('ligne_frais_forfait/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <br>
+        <a href="{{ path('ligne_frais_forfait_index') }}"><button class="btn btn-primary">Retour</button></a>
+    </div>
+{% endblock %}

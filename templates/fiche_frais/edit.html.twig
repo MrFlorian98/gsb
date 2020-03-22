@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de la fiche de frais n°{{ fiche_frai.id }}{% endblock %}
+
+{% block body %}
+    <div class="showback">
+        <h1 class="bleu-gsb">Modification de la fiche de frais n°{{ fiche_frai.id }}</h1>
+    </div>
+
+    <div class="text-center">
+        {{ include('fiche_frais/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <br>
+        <a href="{{ path('fiche_frais_index') }}"><button class="btn btn-primary">Retour</button></a>
+    </div>
+{% endblock %}

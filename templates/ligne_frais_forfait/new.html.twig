@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une nouvelle ligne frais forfait{% endblock %}
+
+{% block body %}
+    <div class="showback">
+        <h1 class="bleu-gsb">Ajouter une nouvelle ligne frais forfait</h1>
+    </div>
+
+    <div class="text-center">
+        {{ include('ligne_frais_forfait/_form.html.twig', {'button_label': 'Valider l\'ajout'}) }}
+        <br>
+        <a href="{{ path('ligne_frais_forfait_index') }}"><button class="btn btn-primary">Retour</button></a>
+    </div>
+{% endblock %}

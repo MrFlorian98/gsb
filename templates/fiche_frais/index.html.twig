@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les fiches de frais{% endblock %}
+
+{% block body %}
+
+    <div class="showback">
+        <h1>Les fiches de frais <a href="{{ path('fiche_frais_new') }}"><button class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</button></a></h1>
+    </div>
+
+    <div class="showback">
+        <table class="table table-responsive">
+            <thead class="thead-gsb">
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Mois</th>
+                    <th>Nombre de justificatifs</th>
+                    <th>Montant total</th>
+                    <th>Date de modification</th>
+                    <th>Afficher</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for fiche_frai in fiche_frais %}
+                <tr>
+                    <td>{{ fiche_frai.id }}</td>
+                    <td>{{ fiche_frai.mois }}</td>
+                    <td>{{ fiche_frai.nbJustificatifs }}</td>
+                    <td>{{ fiche_frai.montantValide }}</td>
+                    <td>{{ fiche_frai.dateModif ? fiche_frai.dateModif|date('d-m-Y à H:i') : '' }}</td>
+                    <td><a href="{{ path('fiche_frais_show', {'id': fiche_frai.id}) }}"><button class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></button></a></td>
+                    <td><a href="{{ path('fiche_frais_edit', {'id': fiche_frai.id}) }}"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a></td>
+                    <td>{{ include('fiche_frais/_delete_form.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="100%">Aucun résultat trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

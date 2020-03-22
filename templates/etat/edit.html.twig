@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Etat{% endblock %}
+{% block title %}Modification de {{ etat.libelle }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Etat</h1>
+    <div class="showback">
+        <h1 class="bleu-gsb">Modification de {{ etat.libelle }}</h1>
+    </div>
 
-    {{ include('etat/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('etat_index') }}">back to list</a>
-
-    {{ include('etat/_delete_form.html.twig') }}
+    <div class="text-center">
+        {{ include('etat/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        <br>
+        <a href="{{ path('etat_index') }}"><button class="btn btn-primary">Retour</button></a>
+    </div>
 {% endblock %}

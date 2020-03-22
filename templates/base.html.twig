@@ -64,39 +64,39 @@
             <!-- Si l'utilisateur est administrateur -->
             {% if role == 'ROLE_ADMINISTRATEUR' %}
               <li class="sub-menu">
-                <a href="#">
-                  <i class="fa fa-angle-right"></i>
-                  <span>Renseigner fiche de frais</span>
-                </a>
-              </li>
-              <li class="sub-menu">
-                <a href="#">
-                  <i class="fa fa-angle-right"></i>
-                  <span>Consulter fiche de frais</span>
-                </a>
-              </li>
-              <li class="sub-menu">
-                <a href="#">
-                  <i class="fa fa-angle-right"></i>
-                  <span>Valider fiche de frais</span>
-                </a>
-              </li>
-              <li class="sub-menu">
-                <a href="#">
-                  <i class="fa fa-angle-right"></i>
-                  <span>Suivre un paiement</span>
-                </a>
-              </li>
-              <li class="sub-menu">
                 <a href="/visiteur">
                   <i class="fa fa-angle-right"></i>
-                  <span>Table visiteurs</span>
+                  <span>Visiteurs</span>
                 </a>
               </li>
               <li class="sub-menu">
                 <a href="/frais_forfait">
                   <i class="fa fa-angle-right"></i>
-                  <span>Table frais forfait</span>
+                  <span>Frais forfait</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="/etat">
+                  <i class="fa fa-angle-right"></i>
+                  <span>État</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="/ligne_frais_forfait">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Ligne frais forfait</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="/ligne_frais_hors_forfait">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Ligne frais hors forfait</span>
+                </a>
+              </li>
+              <li class="sub-menu">
+                <a href="/fiche_frais">
+                  <i class="fa fa-angle-right"></i>
+                  <span>Fiche frais</span>
                 </a>
               </li>
             <!-- Sinon si l'utilisateur est visiteur médical -->

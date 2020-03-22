@@ -6,8 +6,11 @@
         <div class="col-lg-4 col-md-4 col-sm-12">
             <div class="showback">
                 <h4 class="bleu-gsb">Informations à renseigner</h4>
-                {{ form_row(form.abreviation, {'label': 'Abréviation'}) }}
-                {{ form_row(form.libelle, {'label': 'Libellé'}) }}
+                {{ form_row(form.mois, {'label': 'Mois (mois/année)'}) }}
+                {{ form_row(form.nbJustificatifs, {'label': 'Nombre de justificatifs'}) }}
+                {{ form_row(form.montantValide, {'label': 'Montant valide total'}) }}
+                {{ form_row(form.dateModif, {'label': 'Date de modification'}) }}
+                {{ form_row(form.fkVisiteur, {'label': 'Visiteur'}) }}
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-12"></div>

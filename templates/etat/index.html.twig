@@ -1,37 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Etat index{% endblock %}
+{% block title %}Les états{% endblock %}
 
 {% block body %}
-    <h1>Etat index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Abreviation</th>
-                <th>Libelle</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for etat in etats %}
-            <tr>
-                <td>{{ etat.id }}</td>
-                <td>{{ etat.abreviation }}</td>
-                <td>{{ etat.libelle }}</td>
-                <td>
-                    <a href="{{ path('etat_show', {'id': etat.id}) }}">show</a>
-                    <a href="{{ path('etat_edit', {'id': etat.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="showback">
+        <h1>Les états <a href="{{ path('etat_new') }}"><button class="btn btn-success"><i class="fa fa-plus"></i> Ajouter</button></a></h1>
+    </div>
 
-    <a href="{{ path('etat_new') }}">Create new</a>
+    <div class="showback">
+        <table class="table table-responsive">
+            <thead class="thead-gsb">
+                <tr>
+                    <th>Identifiant</th>
+                    <th>Abréviation</th>
+                    <th>Libellé</th>
+                    <th>Afficher</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for etat in etats %}
+                <tr>
+                    <td>{{ etat.id }}</td>
+                    <td>{{ etat.abreviation }}</td>
+                    <td>{{ etat.libelle }}</td>
+                    <td><a href="{{ path('etat_show', {'id': etat.id}) }}"><button class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></button></a></td>
+                    <td><a href="{{ path('etat_edit', {'id': etat.id}) }}"><button class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></button></a></td>
+                    <td>{{ include('etat/_delete_form.html.twig') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="100%">Aucun résultat trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}

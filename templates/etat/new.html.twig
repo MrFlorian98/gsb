@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Etat{% endblock %}
+{% block title %}Ajouter un nouvel état{% endblock %}
 
 {% block body %}
-    <h1>Create new Etat</h1>
+    <div class="showback">
+        <h1 class="bleu-gsb">Ajouter un nouvel état</h1>
+    </div>
 
-    {{ include('etat/_form.html.twig') }}
-
-    <a href="{{ path('etat_index') }}">back to list</a>
+    <div class="text-center">
+        {{ include('etat/_form.html.twig', {'button_label': 'Valider l\'ajout'}) }}
+        <br>
+        <a href="{{ path('etat_index') }}"><button class="btn btn-primary">Retour</button></a>
+    </div>
 {% endblock %}

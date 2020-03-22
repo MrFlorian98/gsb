@@ -1,5 +1,9 @@
-<form method="post" action="{{ path('etat_delete', {'id': etat.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('etat_delete', {'id': etat.id}) }}" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cet état ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ etat.id) }}">
-    <button class="btn">Delete</button>
+    {% if app.request.attributes.get('_route') == 'etat_index' %}
+        <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+    {% elseif app.request.attributes.get('_route') == 'etat_show' %}
+        <button class="btn btn-danger">Supprimer</button>
+    {% endif %}
 </form>
