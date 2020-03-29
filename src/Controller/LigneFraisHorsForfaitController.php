@@ -89,6 +89,6 @@ class LigneFraisHorsForfaitController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('ligne_frais_hors_forfait_index');
+        return $this->redirectToRoute('saisie_fiche_frais');
     }
 }

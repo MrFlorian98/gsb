@@ -47,4 +47,24 @@ class LigneFraisForfaitRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function countFrais($user, $fraisForfaitId){
+        //Récupérer mois actuel
+        $date = new \DateTime();
+        $mois = $date->format("m-Y");
+
+        $res = $this->createQueryBuilder('etp')
+        ->select('SUM(etp.quantite)')
+        ->where('etp.mois = :mois')
+        ->andWhere('etp.fkVisiteur = :visiteur')
+        ->andWhere('etp.fkFraisForfait = :ff')
+        ->setParameter('mois', $mois)
+        ->setParameter('visiteur', $user)
+        ->setParameter('ff', $fraisForfaitId)
+        ->getQuery()
+        ->getSingleScalarResult();
+
+        return $res;
+    }
+
 }

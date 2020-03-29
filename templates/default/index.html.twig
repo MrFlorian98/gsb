@@ -14,14 +14,14 @@
             {% for role in app.user.roles %}
                 <!-- Vérification du rôle et affichage des actions possibles en fonction -->
                 {% if role == 'ROLE_VISITEUR_MEDICAL' %}
-                    <button class="btn btn-success">Renseigner une fiche de frais <i class="fa fa-plus"></i></button>
+                    <a href="{{ path('saisie_fiche_frais') }}"><button class="btn btn-success">Renseigner une fiche de frais <i class="fa fa-plus"></i></button></a>
                     <button class="btn btn-primary">Consulter une fiche de frais <i class="fa fa-eye"></i></button>
                 {% elseif role == 'ROLE_COMPTABLE' %}
                     <button class="btn btn-success">Valider une fiche de frais <i class="fa fa-check"></i></button>
                     <button class="btn btn-primary">Suivre un paiement <i class="fa fa-file-text-o"></i></button>
                 {% elseif role == 'ROLE_ADMINISTRATEUR' %}
                     <h3 class="bleu-gsb">Actions visiteur médical</h3>
-                    <button class="btn btn-success">Renseigner une fiche de frais <i class="fa fa-plus"></i></button>
+                    <a href="{{ path('saisie_fiche_frais') }}"><button class="btn btn-success">Renseigner une fiche de frais <i class="fa fa-plus"></i></button></a>
                     <button class="btn btn-primary">Consulter une fiche de frais <i class="fa fa-eye"></i></button>
                     <h3 class="bleu-gsb">Actions comptable</h3>
                     <button class="btn btn-success">Valider une fiche de frais <i class="fa fa-check"></i></button>

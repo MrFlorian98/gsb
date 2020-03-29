@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une nouvelle fiche de frais{% endblock %}
+
+{% block body %}
+    <div class="showback">
+        <h1 class="bleu-gsb">Ajouter une nouvelle fiche de frais pour le mois {{ "now"|date("M Y") }}</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">
+                {% for message in app.flashes('ff') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <h4 class="bleu-gsb">Ligne de frais forfait</h4>
+                {{ form_start(form) }}
+                    {{ form_row(form.quantiteETP, {'label': 'Quantité de forfait étape'}) }}
+                    {{ form_row(form.quantiteKM, {'label': 'Quantité de kilomètres'}) }}
+                    {{ form_row(form.quantiteNUI, {'label': 'Quantité de nuitées hôtel'}) }}
+                    {{ form_row(form.quantiteREP, {'label': 'Quantité de repas restaurant'}) }}
+
+                    {{ form_widget(form) }}
+
+                    <button class="btn btn-success btn-block">{{ button_label|default('Valider la ligne de frais forfait') }}</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">
+                {% for message in app.flashes('hf') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <h4 class="bleu-gsb">Ligne de frais hors forfait</h4>
+                {{ form_start(formHF) }}
+                    {{ form_row(formHF.date, {'label': ' '}) }}
+                    {{ form_row(formHF.libelle, {'label': 'Libellé'}) }}
+                    {{ form_row(formHF.montant, {'label': 'Montant (en €)'}) }}
+                    {{ form_widget(formHF) }}
+    
+                    <button class="btn btn-success btn-block">{{ button_label|default('Valider la ligne de frais hors forfait') }}</button>
+                    
+                {{ form_end(formHF) }}
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">  
+                <h4 class="bleu-gsb">Élements forfaitisés</h4>
+                {% if ficheFraisUser %}
+                <table class="table table-responsive table-bordered">
+                    <thead>
+                        <tr style="background-color:#FFFBE0">
+                            <th>Quantité de forfait étape</th>
+                            <th>Quantité de kilomètres</th>
+                            <th>Quantité de nuitées hôtel</th>
+                            <th>Quantité de repas restaurant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ nbEtp ? nbEtp : '0' }}</td>
+                            <td>{{ nbKm ? nbKm : '0' }}</td>
+                            <td>{{ nbNui ? nbNui : '0' }}</td>
+                            <td>{{ nbRep ? nbRep : '0' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="alert alert-warning">Aucun élement forfaitisé pour le moment.</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">  
+                <h4 class="bleu-gsb">Élements hors forfait</h4>
+                {% if lignesHorsForfaits %}
+                <table class="table table-responsive table-bordered">
+                    <thead>
+                        <tr style="background-color:#FFFBE0">
+                            <th>Date</th>
+                            <th>Libellé</th>
+                            <th>Montant (en €)</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ligneHorsForfait in lignesHorsForfaits %}
+                            <tr>
+                                <td>{{ ligneHorsForfait.date ? ligneHorsForfait.date|date('d-m-Y') : '' }}</td>
+                                <td>{{ ligneHorsForfait.libelle }}</td>
+                                <td>{{ ligneHorsForfait.montant }}</td>
+                                <td>{{ include('ligne_frais_hors_forfait/_delete_form.html.twig') }}</td>
+                            </tr>
+                        {% endfor %}           
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="alert alert-warning">Aucun élement hors forfait pour le moment.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

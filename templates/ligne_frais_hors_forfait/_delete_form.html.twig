@@ -1,3 +1,12 @@
+{% if app.request.attributes.get('_route') == 'saisie_fiche_frais' %}
+
+<form method="post" action="{{ path('ligne_frais_hors_forfait_delete', {'id': ligneHorsForfait.id}) }}" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette ligne frais hors forfait ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ligneHorsForfait.id) }}">
+    <button class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+</form>
+
+{% else %}
 <form method="post" action="{{ path('ligne_frais_hors_forfait_delete', {'id': ligne_frais_hors_forfait.id}) }}" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette ligne frais hors forfait ?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ligne_frais_hors_forfait.id) }}">
@@ -7,3 +16,4 @@
         <button class="btn btn-danger">Supprimer</button>
     {% endif %}
 </form>
+{% endif %}
